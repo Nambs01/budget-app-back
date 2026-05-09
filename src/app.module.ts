@@ -3,9 +3,8 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabaseModule } from './database/database.module';
 import { ConfModule } from './conf/conf.module';
-import { JWTModule } from './modules/jwt/jwt.module';
 
 @Module({
-    imports: [AuthModule, UsersModule, DatabaseModule, ConfModule, JWTModule],
+    imports: [AuthModule, UsersModule, DatabaseModule, ConfModule],
 })
 export class AppModule {}
