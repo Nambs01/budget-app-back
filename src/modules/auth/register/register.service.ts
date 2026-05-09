@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
+import { CreateUserDto } from '../../users/dto/create-user.dto';
 import { hash } from 'bcrypt';
-import { UsersService } from '../users.service';
-import { JWTService } from '@app/modules/jwt/jwt.service';
+import { UsersService } from '../../users/users.service';
+import { AuthService } from '../auth.service';
 
 @Injectable()
 export class RegisterService {
     constructor(
         private readonly usersService: UsersService,
-        private readonly jwtService: JWTService,
+        private readonly authService: AuthService,
     ) {}
 
     async signUp(createUserDto: CreateUserDto) {
@@ -18,7 +18,7 @@ export class RegisterService {
         const userPayload = { ...createUserDto, password: hashedPassword };
 
         const user = await this.usersService.create(userPayload);
-        return this.jwtService.generateJwtToken({ ...user });
+        return this.authService.generateJwtToken({ ...user });
     }
 
     private async hashPassword(password: string): Promise<string> {
