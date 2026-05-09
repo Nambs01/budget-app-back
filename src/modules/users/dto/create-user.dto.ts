@@ -15,4 +15,8 @@ export class CreateUserDto {
     @ApiPropertyOptional()
     @IsOptional()
     firstname?: string;
+
+    constructor(partial: Partial<CreateUserDto>) {
+        Object.assign(this, partial);
+    }
 }
