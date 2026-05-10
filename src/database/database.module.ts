@@ -7,7 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         TypeOrmModule.forRootAsync({
             inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
-                type: configService.get<string>('database.type') as any,
+                type: configService.get<'mysql'>('database.type'),
                 host: configService.get<string>('database.host'),
                 port: configService.get<number>('database.port'),
                 username: configService.get<string>('database.user'),
