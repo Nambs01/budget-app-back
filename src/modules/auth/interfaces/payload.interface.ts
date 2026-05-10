@@ -1,5 +1,5 @@
 export interface IToken {
-    acces_token: string;
+    accessToken: string;
 }
 
 export interface IJwtPayload {

@@ -12,7 +12,7 @@ export class AuthService {
         private readonly usersService: UsersService,
     ) {}
 
-    async signByEmail(data: Credential) {
+    async signByEmail(data: Credential): Promise<IToken> {
         const user = await this.usersService.findOneByEmail(data.email);
 
         if (!user || user.deletedAt) throw new Error('User not found');
@@ -31,15 +31,11 @@ export class AuthService {
     }
 
     authenticate(token: string): number {
-        try {
-            const decoded = this.jwtService.verify<IJwtPayload>(token);
-            return decoded.id;
-        } catch (error) {
-            throw new Error('Invalid token');
-        }
+        const decoded = this.jwtService.verify<IJwtPayload>(token);
+        return decoded.id;
     }
 
     generateJwtToken(payload: IJwtPayload): IToken {
-        return { acces_token: this.jwtService.sign(payload) };
+        return { accessToken: this.jwtService.sign(payload) };
     }
 }

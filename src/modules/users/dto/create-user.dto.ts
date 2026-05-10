@@ -1,5 +1,5 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEmail, IsOptional } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsEmail } from 'class-validator';
 
 export class CreateUserDto {
     @ApiProperty()
@@ -11,10 +11,6 @@ export class CreateUserDto {
 
     @ApiProperty()
     name!: string;
-
-    @ApiPropertyOptional()
-    @IsOptional()
-    firstname?: string;
 
     constructor(partial: Partial<CreateUserDto>) {
         Object.assign(this, partial);
