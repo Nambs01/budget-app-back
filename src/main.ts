@@ -2,12 +2,19 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import cookieParser from 'cookie-parser';
+import * as fs from 'fs';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    console.log('FRONTEND_URL:', process.env.FRONT_APP_URL);
+    const app = await NestFactory.create(AppModule, {
+        httpsOptions: {
+            cert: fs.readFileSync('./certs/cert.pem'),
+            key: fs.readFileSync('./certs/key.pem'),
+        },
+    });
 
     app.enableCors({
-        origin: process.env.FRONT_APP_URL ?? 'http://localhost:5173',
+        origin: process.env.FRONT_APP_URL,
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization'],
