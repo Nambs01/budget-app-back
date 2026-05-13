@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import * as fs from 'fs';
 
 async function bootstrap() {
-    console.log('FRONTEND_URL:', process.env.FRONT_APP_URL);
     const app = await NestFactory.create(AppModule, {
         httpsOptions: {
             cert: fs.readFileSync('./certs/cert.pem'),

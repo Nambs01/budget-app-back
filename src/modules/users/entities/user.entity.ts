@@ -1,5 +1,7 @@
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
 import { BaseEntity } from '@app/common/entities/base-entity';
+import { Expense } from '@app/modules/expenses/entities/expense.entity';
+import { Budget } from '@app/modules/budgets/entities/budget.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -11,4 +13,10 @@ export class User extends BaseEntity {
 
     @Column()
     name!: string;
+
+    @OneToMany(() => Expense, (expense) => expense.user)
+    expenses!: Expense[];
+
+    @OneToMany(() => Budget, (budget) => budget.user)
+    budgets!: Budget[];
 }
