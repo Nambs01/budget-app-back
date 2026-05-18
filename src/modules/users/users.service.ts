@@ -40,4 +40,10 @@ export class UsersService {
     async remove(id: number) {
         return await this.userRepository.softDelete(id);
     }
+
+    async updateAmountUser(id: number, value: number) {
+        await this.userRepository.increment({ id }, 'amount', value);
+        const user = await this.findOne(id);
+        return user?.amount;
+    }
 }

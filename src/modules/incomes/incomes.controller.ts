@@ -11,13 +11,14 @@ export class IncomesController {
 
     @Post()
     async create(@Req() req: RequestWithUser, @Body() payload: CreateIncomeDto) {
-        const data = await this.incomesService.create(req.userId, payload);
-        return IncomeMapper.toResponse(data);
+        const data = await this.incomesService.addNewIncome(req.userId, payload);
+        return { income: IncomeMapper.toResponse(data.income), amountUser: data.amountUser };
     }
 
     @Get()
-    findAll() {
-        return this.incomesService.findAll();
+    async findAll() {
+        const data = await this.incomesService.findAll();
+        return IncomeMapper.toResponseList(data);
     }
 
     @Get(':id')

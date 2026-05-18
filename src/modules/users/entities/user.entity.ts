@@ -23,4 +23,7 @@ export class User extends BaseEntity {
 
     @OneToMany(() => Income, (income) => income.user)
     incomes!: Income[];
+
+    @Column({ type: 'int', default: 0 })
+    amount!: number;
 }

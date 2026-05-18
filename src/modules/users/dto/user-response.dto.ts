@@ -11,6 +11,9 @@ export class UserResponseDto {
     name!: string;
 
     @Expose()
+    amount!: number;
+
+    @Expose()
     createdAt!: Date;
 
     @Expose()
